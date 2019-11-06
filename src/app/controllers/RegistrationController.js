@@ -1,16 +1,11 @@
 import * as Yup from 'yup';
-import {
-  startOfHour,
-  addMonths,
-  parseISO,
-  format,
-  formatDistance,
-  isBefore,
-} from 'date-fns';
+import { startOfHour, addMonths, parseISO, format, isBefore } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import Registration from '../models/Registration';
 import Student from '../models/Student';
 import Plan from '../models/Plan';
+import CreationMail from '../jobs/CreationMail';
+import Queue from '../../lib/Queue';
 
 class RegistrationController {
   async index(req, res) {
@@ -86,18 +81,16 @@ class RegistrationController {
 
     const price = plan.duration * plan.price;
 
-    const formattedDate = format(
-      startDate,
-      "'Data de inicio: ', dd '/' MM' '/' yyyy",
-      { locale: pt }
-    );
-
     const registration = await Registration.create({
       student_id,
       plan_id,
       start_date,
       end_date,
       price,
+    });
+
+    await Queue.add(CreationMail.key, {
+      registration,
     });
 
     return res.json(registration);

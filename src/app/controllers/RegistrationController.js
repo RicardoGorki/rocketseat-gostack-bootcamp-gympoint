@@ -89,8 +89,23 @@ class RegistrationController {
       price,
     });
 
+    const registrationMail = await Registration.findByPk(registration.id, {
+      include: [
+        {
+          model: Student,
+          as: 'student',
+          attributes: ['name', 'email'],
+        },
+        {
+          model: Plan,
+          as: 'plan',
+          attributes: ['title', 'duration'],
+        },
+      ],
+    });
+
     await Queue.add(CreationMail.key, {
-      registration,
+      registrationMail,
     });
 
     return res.json(registration);

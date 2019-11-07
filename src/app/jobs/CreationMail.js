@@ -8,27 +8,27 @@ class CreationMail {
   }
 
   async handle({ data }) {
-    const { registration } = data;
+    const { registrationMail } = data;
 
     await Mail.sendMail({
-      to: `${registration.student.name} <${registration.student.email}>`,
+      to: `${registrationMail.student.name} <${registrationMail.student.email}>`,
       subject: 'Criação de Matricula',
       template: 'creation',
       context: {
-        student: registration.student.name,
-        plan: registration.student.name,
-        duration: registration.student.name,
-        price: registration.student.name,
+        student: registrationMail.student.name,
+        plan: registrationMail.plan.title,
+        duration: registrationMail.plan.duration,
+        price: registrationMail.price,
         start_date: format(
-          parseISO(registration.start_date),
-          "'dia' dd 'de' MMMM', às' H:mm'h'",
+          parseISO(registrationMail.start_date),
+          "dd'/'MM'/'yyyy' às' H:mm'h'",
           {
             locale: pt,
           }
         ),
         end_date: format(
-          parseISO(registration.end_date),
-          "'dia' dd 'de' MMMM', às' H:mm'h'",
+          parseISO(registrationMail.end_date),
+          "dd'/'MM'/'yyyy' às' H:mm'h'",
           {
             locale: pt,
           }

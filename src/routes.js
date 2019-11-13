@@ -13,6 +13,9 @@ const routes = new Router();
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 
+routes.get('/students/:id/checkins', CheckinController.index);
+routes.post('/students/:id/checkins', CheckinController.store);
+
 routes.use(authMiddleware);
 
 routes.post('/students', StudentController.store);
@@ -26,8 +29,5 @@ routes.post('/registrations', RegistrationController.store);
 routes.get('/registrations', RegistrationController.index);
 routes.put('/registrations/:id', RegistrationController.update);
 routes.delete('/registrations/:id', RegistrationController.delete);
-
-routes.get('/students/:id/checkins', CheckinController.index);
-routes.post('/students/:id/checkins', CheckinController.store);
 
 export default routes;

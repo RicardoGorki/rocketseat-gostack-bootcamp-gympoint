@@ -1,6 +1,5 @@
-import { startOfWeek, endOfWeek, parseISO, isBefore, subDays } from 'date-fns';
-import { pt } from 'date-fns/locale/pt';
-import { Op } from 'sequelize';
+import { startOfDay, endOfDay, subDays } from 'date-fns';
+
 import Checkin from '../schemas/Checkin';
 
 import Registration from '../models/Registration';
@@ -26,11 +25,22 @@ class CheckinController {
 
     await Registration.findByPk(student_id);
 
-    const searchDate = Number(new Date());
+    const startDay = startOfDay(new Date());
+    const lastWeek = subDays(startDay, 7);
+
+    const checkins = await Checkin.find({ student_id })
+      .gte('createdAt', startOfDay(lastWeek))
+      .lte('createdAt', endOfDay(startDay))
+      .countDocuments();
+
+    if (checkins > 4) {
+      return res.status(401).json({ error: 'You shall not pass' });
+    }
 
     const checkin = await Checkin.create({
       student_id,
     });
+
     return res.json(checkin);
   }
 }

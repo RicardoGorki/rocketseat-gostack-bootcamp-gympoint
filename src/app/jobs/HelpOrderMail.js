@@ -1,5 +1,3 @@
-import { format, parseISO } from 'date-fns';
-import pt from 'date-fns/locale/pt';
 import Mail from '../../lib/Mail';
 
 class HelpOrderMail {
@@ -12,19 +10,12 @@ class HelpOrderMail {
 
     await Mail.sendMail({
       to: `${helpOrderMail.student.name} <${helpOrderMail.student.email}>`,
-      subject: 'Criação de Matricula',
+      subject: 'Pedido de Ajudo',
       template: 'helporder',
       context: {
-        student: helpOrderMail.student.name,
-        duration: helpOrderMail.plan.duration,
-        price: helpOrderMail.price,
-        start_date: format(
-          parseISO(helpOrderMail.start_date),
-          "dd'/'MM'/'yyyy' às' H:mm'h'",
-          {
-            locale: pt,
-          }
-        ),
+        name: helpOrderMail.student.name,
+        question: helpOrderMail.question,
+        answer: helpOrderMail.answer,
       },
     });
   }

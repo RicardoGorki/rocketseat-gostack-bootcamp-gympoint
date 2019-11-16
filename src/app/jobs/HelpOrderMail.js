@@ -10,7 +10,7 @@ class HelpOrderMail {
 
     await Mail.sendMail({
       to: `${helpOrderMail.student.name} <${helpOrderMail.student.email}>`,
-      subject: 'Pedido de Ajudo',
+      subject: 'Pedido de Ajuda',
       template: 'helporder',
       context: {
         name: helpOrderMail.student.name,

@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { startOfDay, format, parseISO } from 'date-fns';
+import { startOfDay } from 'date-fns';
 
 import Registration from '../models/Registration';
 import Student from '../models/Student';

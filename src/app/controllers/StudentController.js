@@ -56,6 +56,10 @@ class StudentController {
 
     const student = await Student.findByPk(id);
 
+    if (!student) {
+      return res.status(401).json({ error: 'Student does not exists' });
+    }
+
     const { name, age, weight, height } = await student.update(req.body);
 
     return res.json({

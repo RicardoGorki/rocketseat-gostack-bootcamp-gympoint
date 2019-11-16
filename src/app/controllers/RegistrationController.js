@@ -143,6 +143,11 @@ class RegistrationController {
     const price = plan.duration * plan.price;
 
     const registration = await Registration.findByPk(id);
+
+    if (!registration) {
+      res.status(401).json({ error: 'Registration does not exists' });
+    }
+
     await registration.update({
       id,
       student_id,

@@ -9,7 +9,7 @@ class CheckinController {
     const student_id = req.params.id;
     const checkins = await Checkin.find({ student_id });
 
-    const studentExists = await Registration.findOne({ where: { student_id } });
+    const studentExists = await Registration.findByPk(student_id);
 
     if (!studentExists) {
       return res
@@ -23,7 +23,7 @@ class CheckinController {
   async store(req, res) {
     const student_id = req.params.id;
 
-    await Registration.findByPk(student_id);
+    const registration = await Registration.findByPk(student_id);
 
     const startDay = startOfDay(new Date());
     const lastWeek = subDays(startDay, 7);
@@ -32,6 +32,10 @@ class CheckinController {
       .gte('createdAt', startOfDay(lastWeek))
       .lte('createdAt', endOfDay(startDay))
       .countDocuments();
+
+    if (!registration) {
+      return res.status(401).json({ error: 'Student does not exists' });
+    }
 
     if (checkins > 4) {
       return res.status(401).json({ error: 'You shall not pass' });

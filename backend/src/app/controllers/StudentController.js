@@ -2,6 +2,13 @@ import * as Yup from 'yup';
 import Student from '../models/Student';
 
 class StudentController {
+  async index(req,res) {
+    const studentExists = await Student.findOne({
+      where: { name: req.query.q}
+    })
+    return res.json(studentExists);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),

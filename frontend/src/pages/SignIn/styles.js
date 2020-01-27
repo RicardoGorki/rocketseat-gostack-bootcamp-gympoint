@@ -4,19 +4,16 @@ import { darken } from 'polished';
 
 export const Wrapper = styled.div`
   height: 100%;
-
+  background: #ee4d64;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #ee4d64;
 `;
 
 export const Container = styled.div`
   width: 100%;
   max-width: 360px;
   height: 448px;
-  left: 540px;
-  top: 226px;
   text-align: center;
   padding: 30px;
   background: #ffffff;
@@ -26,17 +23,15 @@ export const Container = styled.div`
   img {
     width: 153px;
     height: 100px;
-    margin-bottom: 30px;
   }
   form {
     display: flex;
     flex-direction: column;
+    margin-top: 10px;
 
     input {
       width: 300px;
       height: 45px;
-      left: 0px;
-      top: 24px;
       font-size: 16px;
       line-height: 19px;
       background: #ffffff;
@@ -51,8 +46,6 @@ export const Container = styled.div`
       }
     }
     button {
-      font-family: Roboto;
-      font-style: normal;
       font-weight: bold;
       font-size: 16px;
       line-height: 19px;
@@ -60,7 +53,7 @@ export const Container = styled.div`
       background: #ee4d64;
       border: 0;
       border-radius: 4px;
-      margin-top: 20px;
+      margin-top: 15px;
       width: 300px;
       height: 45px;
       transition: 0.5s;
@@ -72,15 +65,11 @@ export const Container = styled.div`
 
     span {
       text-align: left;
-      font-style: normal;
       font-weight: bold;
       font-size: 14px;
-      line-height: 16px;
       color: #444444;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
       margin-top: 10px;
     }
   }
 `;
-
-export const Text = styled.text``;
